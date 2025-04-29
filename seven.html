@@ -1,0 +1,175 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>佛教頭七儀式流程</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: #fff;
+            font-size: 26px;
+        }
+        td {
+            font-size: 24px;
+        }
+        .note {
+            background-color: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .contact {
+            font-size: 22px;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            body {
+                font-size: 20px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            th, td {
+                font-size: 20px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>佛教頭七儀式流程</h1>
+    <p>亡者：2025年4月24日早上6:05離世<br>頭七：4月29日晚上9點或4月30日上午<br>地點：台北市第二殯儀館</p>
+
+    <table>
+        <tr>
+            <th>步驟</th>
+            <th>時間</th>
+            <th>內容</th>
+            <th>注意事項</th>
+        </tr>
+        <tr>
+            <td>1. 布置靈堂</td>
+            <td>8:30 PM</td>
+            <td>設牌位、香爐、素食供品（12道）、水果、紙錢。</td>
+            <td>提前到場，供品用素食，牌位由法師移至場地。</td>
+        </tr>
+        <tr>
+            <td>2. 法師入場</td>
+            <td>9:00 PM</td>
+            <td>法師開場，家屬持香，向佛稟告頭七。</td>
+            <td>穿白色或深色衣服，保持安靜。</td>
+        </tr>
+        <tr>
+            <td>3. 誦經</td>
+            <td>9:00-9:20 PM</td>
+            <td>誦《阿彌陀經》、《往生咒》，念佛號。</td>
+            <td>跟法師念「南無阿彌陀佛」或合掌聆聽。</td>
+        </tr>
+        <tr>
+            <td>4. 拜亡魂</td>
+            <td>9:20-9:50 PM</td>
+            <td>持香拜牌位，靜待亡魂用餐，法師擲筊。</td>
+            <td>水果用單數（如3顆蘋果），勿動供品。</td>
+        </tr>
+        <tr>
+            <td>5. 迴向</td>
+            <td>9:50-10:30 PM</td>
+            <td>誦《心經》，念佛號，迴向功德給亡魂。</td>
+            <td>跟法師合掌，祈求亡魂往生淨土。</td>
+        </tr>
+        <tr>
+            <td>6. 燒紙錢</td>
+            <td>10:30-11:00 PM</td>
+            <td>燒金紙、銀紙，法師誦咒，結束法事。</td>
+            <td>在二殯焚燒區燒紙錢，遵從指引。</td>
+        </tr>
+        <tr>
+            <td>7. 清理離場</td>
+            <td>11:00-11:15 PM</td>
+            <td>清理供品，確認牌位安置，繳場地費。</td>
+            <td>供品可帶回家分食，確認費用。</td>
+        </tr>
+    </table>
+
+    <div class="note">
+        <strong>注意事項：</strong><br>
+        - 供品：12道素食，單數水果，勿用牛肉、馬肉。<br>
+        - 服裝：穿白色或深色，孕婦可綁紅布。<br>
+        - 場地：二殯多功能室（500-2,000元）或小型禮廳（3,000-10,000元）。<br>
+        - 費用：法師5,000-20,000元，供品3,000-10,000元，總計1.5-3萬元。<br>
+        - 牌位：若在二殯，法師直接移至場地；若在家，4月29日請法師到家請牌。
+    </div>
+
+    <div class="contact">
+        <strong>聯繫方式：</strong><br>
+        - 二殯：02-8732-5200<br>
+        - 晶品禮儀：0800-600-038<br>
+        - 德恩禮儀：0800-200-911<br>
+        - 場地查詢：https://mso.gov.taipei
+    </div>
+</body>
+</html>
