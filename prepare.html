@@ -98,16 +98,17 @@
             border-radius: 10px;
             text-align: center;
         }
-        .chat-box button {
+        .chat-button {
             background-color: #0288d1;
             color: #fff;
-            border: none;
             padding: 10px 20px;
             font-size: 22px;
+            text-decoration: none;
             border-radius: 5px;
+            display: inline-block;
             cursor: pointer;
         }
-        .chat-box button:hover {
+        .chat-button:hover {
             background-color: #0277bd;
         }
         @media (max-width: 600px) {
@@ -124,7 +125,7 @@
                 font-size: 20px;
                 padding: 10px;
             }
-            .chat-box button {
+            .chat-button {
                 font-size: 18px;
                 padding: 8px 16px;
             }
@@ -133,8 +134,8 @@
 </head>
 <body>
     <div class="chat-box">
-        <p>對表格有疑問？點擊下方與Grok對話！</p>
-        <button onclick="alert('請在Grok應用程式或網站輸入您的問題，我們會立即解答！')">問Grok</button>
+        <p>對表格有疑問？點擊下方向Grok提問！</p>
+        <a href="https://grok.x.ai/" class="chat-button">問Grok</a>
     </div>
 
     <h1>二殯家祭與公祭詳細準備與後續禮俗</h1>
@@ -321,8 +322,8 @@
     </div>
 
     <div class="chat-box">
-        <p>對表格有疑問？點擊下方與Grok對話！</p>
-        <button onclick="alert('請在Grok應用程式或網站輸入您的問題，我們會立即解答！')">問Grok</button>
+        <p>對表格有疑問？點擊下方向Grok提問！</p>
+        <a href="https://grok.x.ai/" class="chat-button">問Grok</a>
     </div>
 </body>
 </html>
